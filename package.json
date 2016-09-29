@@ -1,7 +1,7 @@
 {
   "name": "pollster-instructor",
   "version": "0.0.1",
-  "description": "## Install Dependencies `$ npm install`",
+  "description": "",
   "main": "build/app-client.js",
   "scripts": {
     "startd": "webpack-dev-server",

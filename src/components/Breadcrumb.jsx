@@ -19,11 +19,11 @@ class Breadcrumb extends Component {
     _renderSection(section, i) {
         let crumb;
         if (i === this.props.activeView) {
-            crumb = (<span className="active section">{section}</span>);
+            crumb = (<span className="active section">{section.name}</span>);
         } else {
             crumb = (
                 <span className="section">
-                    <Link to={section}>{section}</Link>
+                    <Link to={section.path}>{section.name}</Link>
                 </span>
             );
         }

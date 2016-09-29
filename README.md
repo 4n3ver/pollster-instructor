@@ -31,8 +31,7 @@ Transpile source code and save the built files into disk.
 "uncheck File > Settings... > System Settings > Use safe write (save changes to a temporary file first)."
 
 ## Known Bugs
-+ **Breadcrumb** breadcrumb state is not persistent across refresh
-+ **Breadcrumb** after series of clicks, breadcrumb state may get messed up if back button is used
++ **Breadcrumb** breadcrumb implementation sux
 
 ## Contributors
 + Yoel Ivan (yivan3@gatech.edu)

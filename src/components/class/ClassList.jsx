@@ -44,7 +44,7 @@ class ClassList extends Component {
         return (
             <div>
                 <SearchClass/>
-                <div className="ui four stackable cards">
+                <div className="ui four stackable cards" >
                     {[1,2].map(this._renderClassCard)}
                 </div>
             </div>

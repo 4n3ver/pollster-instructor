@@ -2,10 +2,36 @@ div.max-height {
     height: 100%;
 }
 
-div.ui.fixed.inverted.menu + div.ui.container {
-    margin-top: 60px;
+div.ui.fluid.left.icon.input {
+    margin-bottom: 20px;
 }
 
-div.ui.fluid.left.icon.input {
-    margin: 20px 0 30px 0;
+div.ui.mini.breadcrumb {
+    margin: 60px 0 20px 0;
 }
+
+@media only screen and (max-width: 767px) {
+    .ui.stackable.grid > .question.column {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        padding-top: .1rem !important;
+    }
+}
+
+.question.column {
+    padding-top: .1rem !important;
+}
+
+.ui.fluid.compact.basic.blue.button.question {
+    cursor: default;
+}
+
+.ui.dimmer {
+    position: fixed;
+}
+
+.ui.modal {
+    top: 35%;
+}
+
+

@@ -13,8 +13,8 @@ export default (state = {
                 (acc, e, i) =>
                     e.name === action.payload.name
                         ? i
-                        : acc
-                , -1
+                        : acc,
+                -1
             );
             if (found === -1) {    // new view is accessed
                 // first time

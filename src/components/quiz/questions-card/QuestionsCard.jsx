@@ -2,14 +2,17 @@
 "use strict";
 
 import React, { Component } from "react";
+import NewQuestionForm from "../new-question/NewQuestionForm";
+import DeleteConfirmation from "./DeleteConfirmation";
 import Modal from "react-modal";
 
-class Questions extends Component {
+class QuestionsCard extends Component {
     constructor(props) {
         super(props);
         this._bind("_renderQuestion");
         this.state = {
-            deleteModalShown: false
+            newQuestionModalShown: false,
+            deleteModalShown     : false
         };
     }
 
@@ -33,7 +36,7 @@ class Questions extends Component {
                         className="right floated mini circular compact inverted ui orange icon button"
                         data-tooltip="Edit this question"
                         data-position="top right">
-                        <i className="edit icon"></i>
+                        <i className="edit icon"/>
                     </div>
                     <div className="ui blue header" style={{margin: "0 5px"}}>
                         {q.prompt}
@@ -58,7 +61,7 @@ class Questions extends Component {
                     <strong>
                         {`${key.toUpperCase()}.  `}
                     </strong>{`${o[key]}  `}
-                    {answer === key && <i className="icon check"></i>}
+                    {answer === key && <i className="icon check"/>}
                 </div>
             );
         };
@@ -66,42 +69,52 @@ class Questions extends Component {
 
     render() {
         return (
-            <div className="ui two column stackable grid"
-                style={{marginTop: "20px"}}>
-                {this.props.questions.map(this._renderQuestion)}
+            <div className="ui blue segment">
+                <div className="ui blue label"
+                    data-tooltip="This card shows all your questions"
+                    data-position="top left">
+                    Questions
+                </div>
+                <div className="ui right floated compact mini buttons">
+                    <button
+                        onClick={() => this.setState(
+                            {newQuestionModalShown: true})}
+                        className="ui inverted blue button">
+                        New Question
+                    </button>
+                    <button
+                        className="ui green button">
+                        Start Present
+                    </button>
+                </div>
+                <div className="ui two column stackable grid"
+                    style={{marginTop: "20px"}}>
+                    {this.props.questions.map(this._renderQuestion)}
+                </div>
+                <Modal className="ui medium active modal new-question"
+                    overlayClassName="ui active dimmer"
+                    isOpen={this.state.newQuestionModalShown}>
+                    <NewQuestionForm
+                        onCancel={() => this.setState(
+                            {newQuestionModalShown: false})}/>
+                </Modal>
                 <Modal className="ui active small modal"
                     overlayClassName="ui active dimmer"
                     shouldCloseOnOverlayClick={true}
                     isOpen={this.state.deleteModalShown}>
-                    <div className="ui fluid card">
-                        <div className="content">
-                            <div className="center aligned header">
-                                Are you sure?
-                            </div>
-                        </div>
-                        <div className="extra content">
-                            <div className="ui two buttons">
-                                <div className="ui red basic button">
-                                    Delete
-                                </div>
-                                <div className="ui green basic button"
-                                    onClick={() => this.setState(
-                                        {deleteModalShown: false})}>
-                                    Cancel
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <DeleteConfirmation
+                        onCancel={() => this.setState(
+                            {deleteModalShown: false})}/>
                 </Modal>
             </div>
         );
     }
 }
 
-Questions.propTypes = {
+QuestionsCard.propTypes = {
     questions: React.PropTypes.array.isRequired
 };
 
-Questions.defaultProps = {};
+QuestionsCard.defaultProps = {};
 
-export default Questions;
+export default QuestionsCard;

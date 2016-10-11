@@ -21,13 +21,19 @@ class FormInput extends Component {
                     ? " error"
                     : ""}`}>
                 <label>{this.props.label}</label>
-                <input
-                    {...this.props.input}
-                    type={this.props.type}
-                    placeholder={this.props.placeholder}
-                />
+                <div className={`ui input${this.props.children
+                    ? " action"
+                    : ""}`}>
+                    <input
+                        {...this.props.input}
+                        {...this.props.attr}
+                        type={this.props.type}
+                        placeholder={this.props.placeholder}
+                    />
+                    {this.props.children}
+                </div>
                 {hasError &&
-                <div className="ui error message">
+                <div className="ui mini pointing basic red label">
                     {this.props.meta.error}
                 </div>}
             </div>
@@ -37,7 +43,8 @@ class FormInput extends Component {
 
 FormInput.propTypes = {
     name: React.PropTypes.string.isRequired,
-    type: React.PropTypes.string.isRequired
+    type: React.PropTypes.string.isRequired,
+    attr: React.PropTypes.object
 };
 
 FormInput.defaultProps = {};
@@ -45,9 +52,11 @@ FormInput.defaultProps = {};
 export default FormInput;
 
 export const required = (...fieldName) => (values, errors = {}) => {
-    fieldName.forEach(name => !values[name]
-        ? errors[name] = "Required!"
-        : null
+    fieldName.forEach(
+        name => values[name] === void 0 || values[name].trim
+        && values[name].trim().length === 0
+            ? errors[name] = "Required!"
+            : null
     );
     return errors;
 };

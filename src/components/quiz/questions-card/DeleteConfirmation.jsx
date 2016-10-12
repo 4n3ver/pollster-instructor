@@ -24,7 +24,8 @@ class DeleteConfirmation extends Component {
                 </div>
                 <div className="extra content">
                     <div className="ui two buttons">
-                        <div className="ui red basic button">
+                        <div className="ui red basic button"
+                            onClick={this.props.onConfirm}>
                             Delete
                         </div>
                         <div className="ui green basic button"
@@ -34,13 +35,13 @@ class DeleteConfirmation extends Component {
                     </div>
                 </div>
             </div>
-
         );
     }
 }
 
 DeleteConfirmation.propTypes = {
-    onCancel: React.PropTypes.func.isRequired
+    onConfirm: React.PropTypes.func.isRequired,
+    onCancel : React.PropTypes.func.isRequired
 };
 
 DeleteConfirmation.defaultProps = {};

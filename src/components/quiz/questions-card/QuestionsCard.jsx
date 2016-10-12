@@ -2,17 +2,20 @@
 "use strict";
 
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import Modal from "react-modal";
 import NewQuestionForm from "../new-question/NewQuestionForm";
 import DeleteConfirmation from "./DeleteConfirmation";
-import Modal from "react-modal";
+import { removeQuestion } from "../../../actions";
 
 class QuestionsCard extends Component {
     constructor(props) {
         super(props);
-        this._bind("_renderQuestion");
+        this._bind("_renderQuestion", "_onQuestionDelete");
         this.state = {
             newQuestionModalShown: false,
-            deleteModalShown     : false
+            deleteModalShown     : false,
+            deleteContext        : null
         };
     }
 
@@ -21,12 +24,21 @@ class QuestionsCard extends Component {
             method => this[method] = this[method].bind(this));
     }
 
+    _onQuestionDelete() {
+        this.props.removeQuestion(this.state.deleteContext);
+        this.setState({deleteModalShown: false});
+    }
+
     _renderQuestion(q, i) {
         return (
             <div key={i} className="question column">
                 <div className="ui fluid compact basic blue button question">
-                    <div onClick={() =>
-                        this.setState({deleteModalShown: true})}
+                    <div onClick={() => this.setState(
+                        {
+                            deleteModalShown: true,
+                            deleteContext   : q
+                        }
+                    )}
                         className="right floated mini circular compact ui negative icon button"
                         data-tooltip="Delete this question"
                         data-position="top right">
@@ -42,8 +54,8 @@ class QuestionsCard extends Component {
                         {q.prompt}
                     </div>
                     <div className="ui left aligned basic segment">
-                        {q.options.map(
-                            this._renderOption(q.answer))}
+                        {q.data.options.map(
+                            this._renderOption(q.data["correct-option"]))}
                     </div>
                     <div className="mini ui fluid inverted green button">
                         Open Question
@@ -55,13 +67,12 @@ class QuestionsCard extends Component {
 
     _renderOption(answer) {
         return (o, i) => {
-            const key = Object.keys(o)[0];
             return (
                 <div key={i}>
                     <strong>
-                        {`${key.toUpperCase()}.  `}
-                    </strong>{`${o[key]}  `}
-                    {answer === key && <i className="icon check"/>}
+                        {`${String.fromCharCode(97 + i)}.  `}
+                    </strong>{`${o}  `}
+                    {answer === o && <i className="icon check"/>}
                 </div>
             );
         };
@@ -89,7 +100,12 @@ class QuestionsCard extends Component {
                 </div>
                 <div className="ui two column stackable grid"
                     style={{marginTop: "20px"}}>
-                    {this.props.questions.map(this._renderQuestion)}
+                    {this.props.questions
+                    && Object.keys(this.props.questions)
+                             .map((k,
+                                   i) => this._renderQuestion(
+                                 this.props.questions[k],
+                                 i))}
                 </div>
                 <Modal className="ui medium active modal new-question"
                     overlayClassName="ui active dimmer"
@@ -103,6 +119,7 @@ class QuestionsCard extends Component {
                     shouldCloseOnOverlayClick={true}
                     isOpen={this.state.deleteModalShown}>
                     <DeleteConfirmation
+                        onConfirm={() => this._onQuestionDelete()}
                         onCancel={() => this.setState(
                             {deleteModalShown: false})}/>
                 </Modal>
@@ -111,10 +128,15 @@ class QuestionsCard extends Component {
     }
 }
 
-QuestionsCard.propTypes = {
-    questions: React.PropTypes.array.isRequired
+const mapStateToProps = state => ({
+    questions: state.quiz.questions
+});
+
+const mapDispatchToProps = {
+    removeQuestion
 };
 
-QuestionsCard.defaultProps = {};
-
-export default QuestionsCard;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(QuestionsCard);

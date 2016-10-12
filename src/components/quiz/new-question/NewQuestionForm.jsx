@@ -8,6 +8,7 @@ import { Field, reduxForm } from "redux-form";
 import FormInput, { required } from "../../input/FormInput";
 import RangeSlider from "../../input/RangeSlider";
 import MultipleChoice from "./MultipleChoice";
+import { addQuestion } from "../../../actions";
 
 class NewQuestionForm extends Component {
     constructor(props) {
@@ -21,7 +22,19 @@ class NewQuestionForm extends Component {
     }
 
     _onSubmit(payload) {
-        console.log(payload);
+        this.props.addQuestion(
+            {
+                type                  : "multiple-choice",
+                prompt                : payload.prompt,
+                "max-score"           : payload["max-score"],
+                "participation-weight": payload["participation-weight"],
+                data                  : {
+                    options         : payload.options,
+                    "correct-option": payload.options[payload.correct]
+                }
+            }
+        );
+        this._onCancel();
     }
 
     _renderAlert() {
@@ -46,9 +59,9 @@ class NewQuestionForm extends Component {
     }
 
     render() {
-        const formClass = `ui ${this.props.processing
+        const formClass = `ui error form${this.props.processing
             ? " loading"
-            : ""} error form`;
+            : ""}`;
         return (
             <form
                 onSubmit={this.props.handleSubmit(this._onSubmit)}
@@ -58,10 +71,7 @@ class NewQuestionForm extends Component {
                         <div className="ui header">New Question</div>
                     </div>
                     <div className="ui segment">
-                        <Field
-                            component={FormInput}
-                            name="prompt"
-                            type="text"
+                        <Field component={FormInput} name="prompt" type="text"
                             label="Question"
                             placeholder="type in the question prompt here..."/>
                         <div className="two fields">
@@ -82,9 +92,8 @@ class NewQuestionForm extends Component {
                         {this._renderAlert()}
                     </div>
                     <div className="ui right aligned compact segment">
-                        <button type="submit"
-                            disabled={this.props.invalid
-                            || this.props.submitting}
+                        <button type="submit" disabled={this.props.invalid
+                        || this.props.submitting}
                             className="ui small primary button">
                             Add Question
                         </button>
@@ -106,7 +115,9 @@ NewQuestionForm.defaultProps = {};
 
 const mapStateToProps = state => ({});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    addQuestion
+};
 
 const validateForm = values => {
     return MultipleChoice.validateForm(

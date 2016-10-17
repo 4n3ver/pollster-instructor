@@ -8,7 +8,7 @@ import { Field, reduxForm } from "redux-form";
 import FormInput, { required } from "../../input/FormInput";
 import RangeSlider from "../../input/RangeSlider";
 import MultipleChoice from "./MultipleChoice";
-import { addQuestion } from "../../../actions";
+import { addMultipleChoiceQuestion } from "../../../actions";
 
 class NewQuestionForm extends Component {
     constructor(props) {
@@ -22,17 +22,12 @@ class NewQuestionForm extends Component {
     }
 
     _onSubmit(payload) {
-        this.props.addQuestion(
-            {
-                type                  : "multiple-choice",
-                prompt                : payload.prompt,
-                "max-score"           : payload["max-score"],
-                "participation-weight": payload["participation-weight"],
-                data                  : {
-                    options         : payload.options,
-                    "correct-option": payload.options[payload.correct]
-                }
-            }
+        this.props.addMultipleChoiceQuestion(
+            payload.prompt,
+            payload["max-score"],
+            payload["participation-weight"],
+            payload.options,
+            payload.options[payload.correct]
         );
         this._onCancel();
     }
@@ -116,7 +111,7 @@ NewQuestionForm.defaultProps = {};
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = {
-    addQuestion
+    addMultipleChoiceQuestion
 };
 
 const validateForm = values => {

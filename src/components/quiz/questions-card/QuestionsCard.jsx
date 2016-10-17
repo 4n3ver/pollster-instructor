@@ -54,8 +54,9 @@ class QuestionsCard extends Component {
                         {q.prompt}
                     </div>
                     <div className="ui left aligned basic segment">
-                        {q.data.options.map(
-                            this._renderOption(q.data["correct-option"]))}
+                        {q["question-data"].options.map(
+                            this._renderOption(
+                                q["answer-data"]["correct-option"]))}
                     </div>
                     <div className="mini ui fluid inverted green button">
                         Open Question

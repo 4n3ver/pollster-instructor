@@ -4,7 +4,7 @@
 import { ADD_QUESTION, REMOVE_QUESTION } from "./types";
 
 let questionID = 0;
-export const addQuestion = q => {
+const addQuestion = q => {
     q["quiz-id"] = questionID++;
     q.status = "ready";
     return {
@@ -13,11 +13,29 @@ export const addQuestion = q => {
     };
 };
 
+const createMultipleChoiceQuestion = (prompt, maxScore, participationWeight,
+                                      options, correctOption) =>
+    ({
+        type                  : "multiple-choice",
+        prompt                : prompt,
+        "max-score"           : maxScore,
+        "participation-weight": participationWeight,
+        "question-data"       : {options},
+        "answer-data"         : {
+            "correct-option": correctOption
+        }
+    });
+
+export const addMultipleChoiceQuestion = function (...args) {
+    return addQuestion(createMultipleChoiceQuestion.apply(this, args));
+};
+
 export const removeQuestion = q => ({
     type   : REMOVE_QUESTION,
     payload: q["quiz-id"]
 });
 
 export default {
-    addQuestion
+    addMultipleChoiceQuestion,
+    removeQuestion
 };

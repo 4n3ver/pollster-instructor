@@ -5,9 +5,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import SearchQuiz from "./SearchQuiz";
 import { Link } from "react-router";
-
+import NewQuizForm from "./NewQuizForm";
 
 class QuizList extends Component {
+
     _renderQuizSummary(data, i) {
         return (
             <div key={i} className="column">
@@ -20,14 +21,20 @@ class QuizList extends Component {
                     </div>
                     <div className="ui horizontal segments">
                         <div className="ui segment">
-                            <button className="fluid ui button">View Students Grade</button>
+                            <button className="fluid ui button">View Students
+                                Grade
+                            </button>
                         </div>
                         <div className="ui segment">
-                            <button className="ui fluid button">Export Students Grade to CSV</button>
+                            <button className="ui fluid button">Export Students
+                                Grade to CSV
+                            </button>
                         </div>
                     </div>
                     <div className="ui segment">
-                        <Link to="/classes/1238127adkf/quizzes/1238712937192" className="ui primary button fluid">View/Edit Quiz</Link>
+                        <Link to="/classes/1238127adkf/quizzes/1238712937192"
+                            className="ui primary button fluid">View/Edit
+                            Quiz</Link>
                     </div>
                 </div>
             </div>
@@ -38,6 +45,7 @@ class QuizList extends Component {
         return (
             <div>
                 <SearchQuiz/>
+                <NewQuizForm/>
                 <div className="ui one column grid">
                     {this._renderQuizSummary()}
                 </div>

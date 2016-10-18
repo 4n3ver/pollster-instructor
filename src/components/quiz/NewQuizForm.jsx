@@ -28,7 +28,7 @@ class NewQuizForm extends Component {
         return (
             <form
                 onSubmit={this.props.handleSubmit(this._onSubmit)}
-                className={formClass} style={{marginBottom: 20}}>
+                className={formClass} style={{marginBottom: 10}}>
                 <div className="ui segments" >
                     <div className="ui inverted segment">
                         <Field component={FormInput} name="name" type="text"

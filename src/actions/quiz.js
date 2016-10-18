@@ -5,7 +5,7 @@ import { ADD_QUESTION, REMOVE_QUESTION } from "./types";
 
 let questionID = 0;
 const addQuestion = q => {
-    q["quiz-id"] = questionID++;
+    q.id = questionID++;
     q.status = "ready";
     return {
         type   : ADD_QUESTION,

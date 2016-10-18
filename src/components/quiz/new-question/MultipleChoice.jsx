@@ -88,7 +88,7 @@ MultipleChoice.propTypes = {};
 
 MultipleChoice.defaultProps = {};
 
-MultipleChoice.validateForm = (values, errors = {}) => {
+MultipleChoice.validateForm = (values, props, errors = {}) => {
     const options = values.options || new Array(2).fill("");
     errors.options = options.map(
         v => v === void 0 || v.trim && v.trim().length === 0

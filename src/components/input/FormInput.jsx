@@ -51,7 +51,7 @@ FormInput.defaultProps = {};
 
 export default FormInput;
 
-export const required = (...fieldName) => (values, errors = {}) => {
+export const required = (...fieldName) => (values, props, errors = {}) => {
     fieldName.forEach(
         name => values[name] === void 0 || values[name].trim
         && values[name].trim().length === 0
@@ -62,7 +62,7 @@ export const required = (...fieldName) => (values, errors = {}) => {
 };
 
 export const pattern = (pattern, errorMessage, ...fieldName) =>
-    (values, errors = {}) => {
+    (values, props, errors = {}) => {
         fieldName.forEach(name => values[name] && !pattern.test(values[name])
             ? errors[name] = `${name}: ${errorMessage}`
             : null

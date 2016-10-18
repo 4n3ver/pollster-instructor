@@ -114,9 +114,9 @@ const mapDispatchToProps = {
     addMultipleChoiceQuestion
 };
 
-const validateForm = values => {
+const validateForm = (values, props) => {
     return MultipleChoice.validateForm(
-        values, required("prompt", "max-score")(values));
+        values, required("prompt", "max-score")(values, props));
 };
 
 export default compose(

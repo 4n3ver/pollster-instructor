@@ -8,7 +8,7 @@ export default (state = {}, action) => {
         case ADD_QUESTION:
             return Object.assign({}, state, {
                 questions: Object.assign({}, state.questions, {
-                    [action.payload["quiz-id"]]: action.payload
+                    [action.payload.id]: action.payload
                 })
             });
         case REMOVE_QUESTION:

@@ -5,12 +5,12 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import FormInput, { required } from "../../input/FormInput";
+import FormInput from "../../input/FormInput";
 import RangeSlider from "../../input/RangeSlider";
 import MultipleChoice from "./MultipleChoice";
 import { addQuestion } from "../../../actions";
-
-import {MultipleChoice} from "../../../utils/questions";
+import { multiplechoice } from "../../../utils/questions";
+import { required } from "../../../utils/form-validator";
 
 class NewQuestionForm extends Component {
     constructor(props) {
@@ -24,7 +24,7 @@ class NewQuestionForm extends Component {
     }
 
     _onSubmit(payload) {
-        this.props.addQuestion(MultipleChoice.fromForm(payload));
+        this.props.addQuestion(multiplechoice.fromForm(payload));
         this._onCancel();
     }
 
@@ -69,14 +69,18 @@ class NewQuestionForm extends Component {
                             <Field component={FormInput} name="max-score"
                                 type="number" label="Max Score"
                                 placeholder="enter max score for this question..."
-                                attr={{min : 0, step: .1}}/>
+                                attr={{
+                                    min : 0,
+                                    step: .1
+                                }}/>
                             <Field component={RangeSlider}
                                 name="participation-weight"
                                 label="Weight" rightLabel="Correctness"
                                 leftLabel="Participation"
                                 min={0} max={1} step={.01}/>
                         </div>
-                        {this.props.formState && <MultipleChoice {...this.props}/>}
+                        {this.props.formState &&
+                        <MultipleChoice {...this.props}/>}
                         {this._renderAlert()}
                     </div>
                     <div className="ui right aligned compact segment">

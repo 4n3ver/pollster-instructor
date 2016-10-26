@@ -8,7 +8,7 @@ import { initialize } from "redux-form";
 import NewQuestionForm from "./NewQuestionForm";
 import DeleteConfirmation from "./DeleteConfirmation";
 import { removeQuestion } from "../../../actions";
-import { MultipleChoice } from "../../../utils/questions";
+import { multiplechoice } from "../../../utils/questions";
 
 class QuestionsCard extends Component {
     constructor(props) {
@@ -46,7 +46,7 @@ class QuestionsCard extends Component {
     _onQuestionEdit(q) {
         return () => {
             this.props.initialize("new-question-form",
-                                  MultipleChoice.toForm(q));
+                                  multiplechoice.toForm(q));
             this.setState({newQuestionModalShown: true});
         };
     }

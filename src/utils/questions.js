@@ -3,7 +3,7 @@
 
 import { MAX_UINT_32, getRandomInt } from "./func";
 
-export const MultipleChoice = Object.freeze(
+export const multiplechoice = Object.freeze(
     {
         fromForm: formData => ({
             id                    : formData.id || getRandomInt(0, MAX_UINT_32

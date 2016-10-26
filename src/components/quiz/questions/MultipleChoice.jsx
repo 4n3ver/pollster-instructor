@@ -71,7 +71,6 @@ class MultipleChoice extends Component {
     }
 
     render() {
-        console.log(this.props);
         const options = this.props.formState.values.options;
         return (
             <div>

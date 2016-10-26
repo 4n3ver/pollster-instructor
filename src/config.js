@@ -1,4 +1,4 @@
 /* @flow */
 "use strict";
 
-export const API_URL = "http://localhost:8000";
+export const API_URL = "https://guarded-oasis-14876.herokuapp.com";

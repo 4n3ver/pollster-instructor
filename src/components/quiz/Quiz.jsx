@@ -2,7 +2,7 @@
 "use strict";
 
 import React, { Component } from "react";
-import QuestionsCard from "./questions-card/QuestionsCard";
+import QuestionsCard from "./questions/QuestionsCard";
 
 class Quiz extends Component {
     constructor(props) {

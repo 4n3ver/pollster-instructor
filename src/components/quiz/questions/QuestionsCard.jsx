@@ -4,14 +4,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Modal from "react-modal";
-import NewQuestionForm from "../new-question/NewQuestionForm";
+import { initialize } from "redux-form";
+import NewQuestionForm from "./NewQuestionForm";
 import DeleteConfirmation from "./DeleteConfirmation";
 import { removeQuestion } from "../../../actions";
+import { MultipleChoice } from "../../../utils/questions";
 
 class QuestionsCard extends Component {
     constructor(props) {
         super(props);
-        this._bind("_renderQuestion", "_onQuestionDelete");
+        this._bind("_renderQuestion", "_onQuestionDeleteConfirmed",
+                   "_onQuestionDelete", "_onQuestionEdit");
         this.state = {
             newQuestionModalShown: false,
             deleteModalShown     : false,
@@ -24,27 +27,41 @@ class QuestionsCard extends Component {
             method => this[method] = this[method].bind(this));
     }
 
-    _onQuestionDelete() {
+    _onQuestionDeleteConfirmed() {
         this.props.removeQuestion(this.state.deleteContext);
         this.setState({deleteModalShown: false});
+    }
+
+    _onQuestionDelete(q) {
+        return () => {
+            this.setState(
+                {
+                    deleteModalShown: true,
+                    deleteContext   : q
+                }
+            );
+        };
+    }
+
+    _onQuestionEdit(q) {
+        return () => {
+            this.props.initialize("new-question-form",
+                                  MultipleChoice.toForm(q));
+            this.setState({newQuestionModalShown: true});
+        };
     }
 
     _renderQuestion(q, i) {
         return (
             <div key={i} className="question column">
                 <div className="ui fluid compact basic blue button question">
-                    <div onClick={() => this.setState(
-                        {
-                            deleteModalShown: true,
-                            deleteContext   : q
-                        }
-                    )}
+                    <div onClick={this._onQuestionDelete(q)}
                         className="right floated mini circular compact ui negative icon button"
                         data-tooltip="Delete this question"
                         data-position="top right">
                         <i className="remove icon"/>
                     </div>
-                    <div
+                    <div onClick={this._onQuestionEdit(q)}
                         className="right floated mini circular compact inverted ui orange icon button"
                         data-tooltip="Edit this question"
                         data-position="top right">
@@ -103,10 +120,8 @@ class QuestionsCard extends Component {
                     style={{marginTop: "20px"}}>
                     {this.props.questions
                     && Object.keys(this.props.questions)
-                             .map((k,
-                                   i) => this._renderQuestion(
-                                 this.props.questions[k],
-                                 i))}
+                             .map((k, i) => this._renderQuestion(
+                                 this.props.questions[k], i))}
                 </div>
                 <Modal className="ui medium active modal new-question"
                     overlayClassName="ui active dimmer"
@@ -120,7 +135,7 @@ class QuestionsCard extends Component {
                     shouldCloseOnOverlayClick={true}
                     isOpen={this.state.deleteModalShown}>
                     <DeleteConfirmation
-                        onConfirm={() => this._onQuestionDelete()}
+                        onConfirm={() => this._onQuestionDeleteConfirmed()}
                         onCancel={() => this.setState(
                             {deleteModalShown: false})}/>
                 </Modal>
@@ -134,7 +149,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    removeQuestion
+    removeQuestion,
+    initialize
 };
 
 export default connect(

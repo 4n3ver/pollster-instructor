@@ -2,7 +2,6 @@
 "use strict";
 
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Field } from "redux-form";
 import FormInput from "../../input/FormInput";
 
@@ -27,15 +26,15 @@ class MultipleChoice extends Component {
     }
 
     _removeOption(i) {
-        const values = this.props.formState[this.props.form].values;
-        if (values.options.length > 2) {
-            this._markCorrectOption(i % (values.options.length - 1));
+        const options = this.props.formState.values.options;
+        if (options.length > 2) {
+            this._markCorrectOption(i % (options.length - 1));
             this.props.array.remove("options", i);
         }
     }
 
     _renderMultipleChoiceFields(d, i) {
-        const correct = this.props.formState[this.props.form].values.correct;
+        const correct = this.props.formState.values.correct;
         return (
             <div key={i}>
                 <Field
@@ -62,14 +61,18 @@ class MultipleChoice extends Component {
         );
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        const options = this.props.formState.values.options;
         this.props.change("correct", 0);
-        this._addOption();
-        this._addOption();
+        if (!options || options.length < 2) {
+            this._addOption();
+            this._addOption();
+        }
     }
 
     render() {
-        const options = this.props.formState[this.props.form].values.options;
+        console.log(this.props);
+        const options = this.props.formState.values.options;
         return (
             <div>
                 <div><strong>Options</strong></div>
@@ -97,13 +100,4 @@ MultipleChoice.validateForm = (values, props, errors = {}) => {
     return errors;
 };
 
-const mapStateToProps = state => ({
-    formState: state.form
-});
-
-const mapDispatchToProps = {};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MultipleChoice);
+export default MultipleChoice;

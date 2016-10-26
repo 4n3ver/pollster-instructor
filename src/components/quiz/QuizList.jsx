@@ -8,7 +8,6 @@ import { Link } from "react-router";
 import NewQuizForm from "./NewQuizForm";
 
 class QuizList extends Component {
-
     _renderQuizSummary(data, i) {
         return (
             <div key={i} className="column">

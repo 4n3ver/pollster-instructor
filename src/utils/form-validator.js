@@ -24,4 +24,4 @@ export const pattern = (pattern, errorMessage, ...fieldName) =>
 export default {
     required,
     pattern
-}
+};

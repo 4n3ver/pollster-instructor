@@ -51,7 +51,7 @@ ReactDOM.render(
                             <Route path=":classId/quizzes">
                                 <IndexRoute component={trackView(QuizList)}/>
                                 <Route
-                                    path=":quizzesId"
+                                    path=":quizzesId/quiz"
                                     component={trackView(Quiz)}
                                 />
                             </Route>

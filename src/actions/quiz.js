@@ -1,24 +1,28 @@
 /* @flow */
 "use strict";
 
-import { ADD_QUESTION, REMOVE_QUESTION } from "./types";
+import { ADD_QUIZ, REMOVE_QUIZ } from "./types";
+import { getRandomInt, MAX_UINT_32 } from "../utils/func";
 
-export const addQuestion = q => {
-    q.status = "ready";
+export const addQuiz = (classId, quizName) => {
     return {
-        type   : ADD_QUESTION,
+        type   : ADD_QUIZ,
+        payload: {
+            name      : quizName,
+            id        : getRandomInt(0, MAX_UINT_32 + 1),
+            "class-id": classId
+        }
+    };
+};
+
+export const removeQuiz = q => {
+    return {
+        type: REMOVE_QUIZ,
         payload: q
     };
 };
 
-export const removeQuestion = q => {
-    return {
-        type   : REMOVE_QUESTION,
-        payload: q.id
-    };
-};
-
 export default {
-    addQuestion,
-    removeQuestion
+    addQuiz,
+    removeQuiz
 };

@@ -6,9 +6,9 @@ import { connect } from "react-redux";
 import Modal from "react-modal";
 import { initialize } from "redux-form";
 import NewQuestionForm from "./NewQuestionForm";
-import DeleteConfirmation from "./DeleteConfirmation";
-import { removeQuestion } from "../../../actions";
-import { multiplechoice } from "../../../utils/questions";
+import DeleteConfirmation from "../DeleteConfirmation";
+import { removeQuestion } from "../../actions";
+import { multiplechoice } from "../../utils/question";
 
 class QuestionsCard extends Component {
     constructor(props) {
@@ -97,6 +97,10 @@ class QuestionsCard extends Component {
     }
 
     render() {
+        const quizId = this.props.quizId;
+        const classId = this.props.classId;
+        const questionList = this.props.question[classId]
+            && this.props.question[classId][quizId] || {};
         return (
             <div className="ui blue segment">
                 <div className="ui blue label"
@@ -118,15 +122,14 @@ class QuestionsCard extends Component {
                 </div>
                 <div className="ui two column stackable grid"
                     style={{marginTop: "20px"}}>
-                    {this.props.questions
-                    && Object.keys(this.props.questions)
-                             .map((k, i) => this._renderQuestion(
-                                 this.props.questions[k], i))}
+                    {Object.keys(questionList).map(
+                        (k, i) => this._renderQuestion(questionList[k], i))}
                 </div>
                 <Modal className="ui medium active modal new-question"
                     overlayClassName="ui active dimmer"
                     isOpen={this.state.newQuestionModalShown}>
-                    <NewQuestionForm
+                    <NewQuestionForm classId={this.props.classId}
+                        quizId={this.props.quizId}
                         onCancel={() => this.setState(
                             {newQuestionModalShown: false})}/>
                 </Modal>
@@ -144,8 +147,13 @@ class QuestionsCard extends Component {
     }
 }
 
+QuestionsCard.propTypes = {
+    quizId : React.PropTypes.string.isRequired,
+    classId: React.PropTypes.string.isRequired
+};
+
 const mapStateToProps = state => ({
-    questions: state.quiz.questions
+    question: state.question
 });
 
 const mapDispatchToProps = {

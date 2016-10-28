@@ -5,12 +5,12 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import FormInput from "../../input/FormInput";
-import RangeSlider from "../../input/RangeSlider";
+import FormInput from "../input/FormInput";
+import RangeSlider from "../input/RangeSlider";
 import MultipleChoice from "./MultipleChoice";
-import { addQuestion } from "../../../actions";
-import { multiplechoice } from "../../../utils/questions";
-import { required } from "../../../utils/form-validator";
+import { addQuestion } from "../../actions";
+import { multiplechoice } from "../../utils/question";
+import { required } from "../../utils/form-validator";
 
 class NewQuestionForm extends Component {
     constructor(props) {
@@ -24,7 +24,8 @@ class NewQuestionForm extends Component {
     }
 
     _onSubmit(payload) {
-        this.props.addQuestion(multiplechoice.fromForm(payload));
+        this.props.addQuestion(this.props.classId, this.props.quizId,
+                               multiplechoice.fromForm(payload));
         this._onCancel();
     }
 
@@ -45,7 +46,7 @@ class NewQuestionForm extends Component {
         this.props.change("participation-weight", 0);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.change("participation-weight", 0);
     }
 
@@ -103,7 +104,10 @@ NewQuestionForm.propTypes = {
     onCancel: React.PropTypes.func.isRequired
 };
 
-NewQuestionForm.defaultProps = {};
+NewQuestionForm.defaultProps = {
+    quizId : React.PropTypes.string.isRequired,
+    classId: React.PropTypes.string.isRequired
+};
 
 const mapStateToProps = state => ({
     formState: state.form["new-question-form"]

@@ -6,6 +6,8 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import FormInput from "../input/FormInput";
+import { addQuiz } from "../../actions";
+import { required } from "../../utils/form-validator";
 
 class NewQuizForm extends Component {
     constructor(props) {
@@ -19,6 +21,8 @@ class NewQuizForm extends Component {
     }
 
     _onSubmit(payload) {
+        this.props.addQuiz(this.props.classId, payload.name);
+        this.props.reset();
     }
 
     render() {
@@ -29,7 +33,7 @@ class NewQuizForm extends Component {
             <form
                 onSubmit={this.props.handleSubmit(this._onSubmit)}
                 className={formClass} style={{marginBottom: 10}}>
-                <div className="ui segments" >
+                <div className="ui segments">
                     <div className="ui inverted segment">
                         <Field component={FormInput} name="name" type="text"
                             label="Create New Quiz"
@@ -37,9 +41,12 @@ class NewQuizForm extends Component {
                     </div>
                     <div className="ui inverted right aligned segment"
                         style={{paddingTop: 0}}>
-                        <div className="ui compact small primary button">
+                        <button type="submit"
+                            className="ui compact small primary button"
+                            disabled={this.props.invalid
+                            || this.props.submitting}>
                             Create
-                        </div>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -47,9 +54,15 @@ class NewQuizForm extends Component {
     }
 }
 
+NewQuizForm.propTypes = {
+    classId: React.PropTypes.string.isRequired
+};
+
 const mapStateToProps = state => ({});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    addQuiz
+};
 
 export default compose(
     connect(
@@ -58,7 +71,8 @@ export default compose(
     ),
     reduxForm(
         {
-            form: "new-quiz-form"
+            validate: required("name"),
+            form    : "new-question-form"
         }
     )
 )(NewQuizForm);

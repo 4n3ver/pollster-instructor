@@ -3,7 +3,7 @@
 
 import React, { Component } from "react";
 import { Field } from "redux-form";
-import FormInput from "../../input/FormInput";
+import FormInput from "../input/FormInput";
 
 class MultipleChoice extends Component {
     constructor(props) {

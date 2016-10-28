@@ -9,6 +9,9 @@ export const FETCH_USER_DATA = "auth/FETCH_USER_DATA";
 export const CHANGE_VIEW = "view/CHANGE_VIEW";
 export const BUILD_VIEW_STACK = "view/BUILD_VIEW_STACK";
 
-export const ADD_QUESTION = "quiz/ADD_QUESTION";
-export const REMOVE_QUESTION = "quiz/REMOVE_QUESTION";
-export const EDIT_QUESTION = "quiz/EDIT_QUESTION";
+export const ADD_QUESTION = "question/ADD_QUESTION";
+export const REMOVE_QUESTION = "question/REMOVE_QUESTION";
+export const EDIT_QUESTION = "question/EDIT_QUESTION";
+
+export const ADD_QUIZ = "question/ADD_QUIZ";
+export const REMOVE_QUIZ = "question/REMOVE_QUIZ";

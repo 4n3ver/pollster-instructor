@@ -20,7 +20,7 @@ class Quiz extends Component {
     render() {
         const classId = this.props.params.classId;
         const quizId = this.props.params.quizzesId;
-        const quizList = this.props.quizList[classId] || {};
+        const quizList = this.props.quizList[classId];
         return (
             <div>
                 <h1 className="ui header">

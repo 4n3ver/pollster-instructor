@@ -76,7 +76,7 @@ class QuizList extends Component {
                     </div>
                     <div className="ui segment">
                         <Link className="ui primary button fluid"
-                            to={`/classes/1238127adkf/quizzes/${data.id}/quiz`}>
+                            to={`/classes/${this.props.params.classId}/quizzes/${data.id}/quiz`}>
                             View/Edit Quiz
                         </Link>
                     </div>

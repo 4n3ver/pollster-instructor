@@ -59,6 +59,9 @@ ReactDOM.render(
                     </Route>
                 </Route>
             </Route>
+
+            {/* fallthrough route, redirect to root */}
+            <Route path="*" onEnter={(nextState, replace) => replace("/")}/>
         </Router>
     </Provider>,
     document.querySelector("#app")

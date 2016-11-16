@@ -13,5 +13,7 @@ export const ADD_QUESTION = "question/ADD_QUESTION";
 export const REMOVE_QUESTION = "question/REMOVE_QUESTION";
 export const EDIT_QUESTION = "question/EDIT_QUESTION";
 
-export const ADD_QUIZ = "question/ADD_QUIZ";
-export const REMOVE_QUIZ = "question/REMOVE_QUIZ";
+export const ADD_QUIZ = "quiz/ADD_QUIZ";
+export const REMOVE_QUIZ = "quiz/REMOVE_QUIZ";
+
+export const GET_CLASSES = "classes/GET_CLASSES";

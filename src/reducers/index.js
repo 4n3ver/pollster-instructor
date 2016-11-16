@@ -7,6 +7,7 @@ import authReducer from "./auth";
 import viewReducer from "./view";
 import questionReducer from "./question";
 import quizReducer from "./quiz";
+import classesReducer from "./classes";
 
 const rootReducer = combineReducers(
     {
@@ -14,7 +15,8 @@ const rootReducer = combineReducers(
         auth    : authReducer,
         view    : viewReducer,
         question: questionReducer,
-        quiz    : quizReducer
+        quiz    : quizReducer,
+        classes : classesReducer
     }
 );
 

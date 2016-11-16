@@ -5,33 +5,39 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import SearchClass from "./SearchClass";
 import { Link } from "react-router";
+import { getClassList } from "../../actions";
+import {valuesOf} from "../../utils/func";
 
 class ClassList extends Component {
+    componentDidMount() {
+        this.props.getClassList(0); // teacher id is hardcoded to 0
+    }
+
     _renderClassCard(data, i) {
         return (
-            <Link key={i} to={`/classes/1238127adkf${data}/quizzes`}
+            <Link key={i} to={`/classes/${data.crn}/quizzes`}
                 className="ui link yellow card">
                 <div className="content">
                     <div className="header">
-                        ECC 1333
+                        {`${data.department} ${data.number}: ${data.title}`}
                     </div>
                     <div className="description">
                     </div>
                     <div className="extra content">
                         <div className="left floated statistic">
                             <div className="value">
-                                <i className="users icon"></i> 325
+                                Section <i className="hashtag icon"></i>
                             </div>
                             <div className="label">
-                                Joined
+                                {data.section}
                             </div>
                         </div>
                         <div className="right floated statistic">
                             <div className="label">
-                                class <i className="hashtag icon"></i>
+                                CRN <i className="hashtag icon"></i>
                             </div>
                             <div className="value">
-                                HIJ123
+                                {data.crn}
                             </div>
                         </div>
                     </div>
@@ -44,17 +50,21 @@ class ClassList extends Component {
         return (
             <div>
                 <SearchClass/>
-                <div className="ui four stackable cards" >
-                    {[1,2].map(this._renderClassCard)}
+                <div className="ui four stackable cards">
+                    {valuesOf(this.props.classes).map(this._renderClassCard)}
                 </div>
             </div>
         );
     }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    classes: state.classes
+});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    getClassList
+};
 
 export default connect(
     mapStateToProps,

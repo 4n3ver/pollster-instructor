@@ -8,7 +8,7 @@ import { Link } from "react-router";
 import DeleteConfirmation from "../DeleteConfirmation";
 import SearchQuiz from "./SearchQuiz";
 import NewQuizForm from "./NewQuizForm";
-import {removeQuiz } from "../../actions";
+import {removeQuiz, getQuiz} from "../../actions";
 
 class QuizList extends Component {
     constructor(props) {
@@ -19,6 +19,10 @@ class QuizList extends Component {
             deleteModalShown: false,
             deleteContext   : null
         };
+    }
+
+    componentDidMount() {
+        this.props.getQuiz(this.props.params.classId);
     }
 
     _bind(...methods) {
@@ -115,7 +119,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    removeQuiz
+    removeQuiz,
+    getQuiz
 };
 
 export default connect(

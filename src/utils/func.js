@@ -16,3 +16,10 @@ export const getRandomInt = (min, max) => {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
 };
+
+/**
+ * Get values of object in array form
+ *
+ * @param obj
+ */
+export const valuesOf = obj => Object.keys(obj).map(k => obj[k]);

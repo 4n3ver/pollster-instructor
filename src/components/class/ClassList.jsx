@@ -6,9 +6,20 @@ import { connect } from "react-redux";
 import SearchClass from "./SearchClass";
 import { Link } from "react-router";
 import { getClassList } from "../../actions";
-import {valuesOf} from "../../utils/func";
+import { valuesOf, stringContains } from "../../utils/func";
 
 class ClassList extends Component {
+    constructor(props) {
+        super(props);
+        this._bind("searchClass");
+        this.state = {searchQuery: ""};
+    }
+
+    _bind(...methods) {
+        methods.forEach(
+            method => this[method] = this[method].bind(this));
+    }
+
     componentDidMount() {
         this.props.getClassList(0); // teacher id is hardcoded to 0
     }
@@ -46,12 +57,25 @@ class ClassList extends Component {
         );
     }
 
+    searchClass(searchQuery) {
+        this.setState({searchQuery});
+    }
+
     render() {
+        const filteredClass = valuesOf(this.props.classes).filter(
+            (c, i) => stringContains(c.department.toLowerCase(), this.state.searchQuery)
+            || stringContains(c.number.toLowerCase(), this.state.searchQuery)
+            || stringContains(c.crn.toLowerCase(), this.state.searchQuery)
+            || stringContains(c.title.toLowerCase(), this.state.searchQuery)
+            || stringContains(c.section.toLowerCase(), this.state.searchQuery)
+        );
+        console.log(this.state.searchQuery, valuesOf(this.props.classes),
+                    filteredClass);
         return (
             <div>
-                <SearchClass/>
+                <SearchClass onSearch={this.searchClass}/>
                 <div className="ui four stackable cards">
-                    {valuesOf(this.props.classes).map(this._renderClassCard)}
+                    {filteredClass.map(this._renderClassCard)}
                 </div>
             </div>
         );

@@ -8,16 +8,18 @@ import { Link } from "react-router";
 import DeleteConfirmation from "../DeleteConfirmation";
 import SearchQuiz from "./SearchQuiz";
 import NewQuizForm from "./NewQuizForm";
-import {removeQuiz, getQuiz} from "../../actions";
+import { removeQuiz, getQuiz } from "../../actions";
+import { valuesOf, stringContains } from "../../utils/func";
 
 class QuizList extends Component {
     constructor(props) {
         super(props);
         this._bind("_onQuizDeleteConfirmed", "_onQuizDelete",
-                   "_renderQuizSummary");
+                   "_renderQuizSummary", "searchQuiz");
         this.state = {
             deleteModalShown: false,
-            deleteContext   : null
+            deleteContext   : null,
+            searchQuery     : ""
         };
     }
 
@@ -89,16 +91,23 @@ class QuizList extends Component {
         );
     }
 
+    searchQuiz(searchQuery) {
+        this.setState({searchQuery});
+    }
+
     render() {
         const classId = this.props.params.classId;
         const quizList = this.props.quizList[classId] || {};
+        const filteredQuiz = valuesOf(quizList).filter(
+            (quiz, i) => stringContains(quiz.name.toLowerCase(),
+                                        this.state.searchQuery));
+        console.log(filteredQuiz);
         return (
             <div>
-                <SearchQuiz/>
+                <SearchQuiz onSearch={this.searchQuiz}/>
                 <NewQuizForm classId={classId}/>
                 <div className="ui one column grid">
-                    {Object.keys(quizList).map(
-                        id => quizList[id]).map(this._renderQuizSummary)}
+                    {filteredQuiz.map(this._renderQuizSummary)}
                 </div>
                 <Modal className="ui active small modal"
                     overlayClassName="ui active dimmer"

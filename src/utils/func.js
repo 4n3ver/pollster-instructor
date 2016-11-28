@@ -23,3 +23,5 @@ export const getRandomInt = (min, max) => {
  * @param obj
  */
 export const valuesOf = obj => Object.keys(obj).map(k => obj[k]);
+
+export const stringContains = (str, sub) => str.indexOf(sub) >= 0;

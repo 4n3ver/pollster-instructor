@@ -1,11 +1,17 @@
 /* @flow */
 "use strict";
 
-import { CHANGE_VIEW, BUILD_VIEW_STACK } from "../actions/types";
+import {
+    CHANGE_VIEW,
+    BUILD_VIEW_STACK,
+    START_LOADING,
+    END_LOADING
+} from "../actions/types";
 
 export default (state = {
     stack : [],
-    active: -1
+    active: -1,
+    isLoading: false
 }, action) => {
     switch (action.type) {
         case CHANGE_VIEW:
@@ -43,6 +49,10 @@ export default (state = {
                 stack : action.payload,
                 active: action.payload.length - 1
             });
+        case START_LOADING:
+            return Object.assign({}, state, {isLoading: true});
+        case END_LOADING:
+            return Object.assign({}, state, {isLoading: false});
         default:
             return state;
     }

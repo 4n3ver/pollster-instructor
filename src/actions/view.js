@@ -2,7 +2,12 @@
 "use strict";
 
 import { browserHistory } from "react-router";
-import { CHANGE_VIEW, BUILD_VIEW_STACK } from "./types";
+import {
+    CHANGE_VIEW,
+    BUILD_VIEW_STACK,
+    START_LOADING,
+    END_LOADING
+} from "./types";
 
 /**
  * Remove trailing "/" from the end of the path
@@ -48,7 +53,13 @@ export const buildStack = path => {
     };
 };
 
+export const startLoading = () => ({type: START_LOADING});
+
+export const endLoading = () => ({type: END_LOADING});
+
 export default {
     changeView,
-    buildStack
+    buildStack,
+    startLoading,
+    endLoading
 };

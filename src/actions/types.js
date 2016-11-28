@@ -8,6 +8,8 @@ export const FETCH_USER_DATA = "auth/FETCH_USER_DATA";
 
 export const CHANGE_VIEW = "view/CHANGE_VIEW";
 export const BUILD_VIEW_STACK = "view/BUILD_VIEW_STACK";
+export const START_LOADING = "view/START_LOADING";
+export const END_LOADING = "view/END_LOADING";
 
 export const ADD_QUESTION = "question/ADD_QUESTION";
 export const REMOVE_QUESTION = "question/REMOVE_QUESTION";

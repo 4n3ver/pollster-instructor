@@ -18,13 +18,21 @@ export default ComposedComponent => {
 
         render() {
             return (
-                <ComposedComponent {...this.props} />
+                <div>
+                    <ComposedComponent {...this.props} />
+                    <div className={`ui${this.props.isLoading
+                    ? " active"
+                    : ""} inverted dimmer`}>
+                        <div className="ui large loader"></div>
+                    </div>
+                </div>
             );
         }
     }
 
-    const mapStateToProps = (state) => ({
-        active: state.view.active
+    const mapStateToProps = state => ({
+        active: state.view.active,
+        isLoading: state.view.isLoading
     });
 
     const mapDispatchToProps = {

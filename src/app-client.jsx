@@ -32,12 +32,12 @@ const store = createStore(
             : f => f
     )
 );
-const token = localStorage.getItem("token");
-
-if (token) {
-    // updating app state before anything is rendered
-    store.dispatch({type: AUTH_USER});
-}
+//const token = localStorage.getItem("token");
+//
+//if (token) {
+//    // updating app state before anything is rendered
+//    store.dispatch({type: AUTH_USER});
+//}
 
 ReactDOM.render(
     <Provider store={store}>

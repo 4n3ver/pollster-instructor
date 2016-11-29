@@ -16,7 +16,6 @@ export default (state = {}, action) => {
         case REMOVE_QUIZ:
             const removeSubState = Object.assign({}, state[classId]);
             delete removeSubState[action.payload.id];
-            console.log(removeSubState);
             return Object.assign({}, state, {
                 [classId]: removeSubState
             });

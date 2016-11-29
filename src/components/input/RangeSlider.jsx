@@ -16,7 +16,7 @@ class RangeSlider extends Component {
     render() {
         const val = this.props.input.value === ""
             ? (this.props.min + this.props.max) / 2
-            : this.props.input.value;
+            : parseFloat(this.props.input.value);
         return (
             <div
                 className="field">

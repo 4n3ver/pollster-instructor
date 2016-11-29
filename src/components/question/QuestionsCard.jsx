@@ -7,7 +7,7 @@ import Modal from "react-modal";
 import { initialize } from "redux-form";
 import NewQuestionForm from "./NewQuestionForm";
 import DeleteConfirmation from "../DeleteConfirmation";
-import { removeQuestion } from "../../actions";
+import { removeQuestion, getQuestion } from "../../actions";
 import { multiplechoice } from "../../utils/question";
 
 class QuestionsCard extends Component {
@@ -20,6 +20,10 @@ class QuestionsCard extends Component {
             deleteModalShown     : false,
             deleteContext        : null
         };
+    }
+
+    componentDidMount() {
+        this.props.getQuestion(this.props.classId, this.props.quizId);
     }
 
     _bind(...methods) {
@@ -158,6 +162,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     removeQuestion,
+    getQuestion,
     initialize
 };
 

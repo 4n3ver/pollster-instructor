@@ -21,7 +21,7 @@ class ClassList extends Component {
     }
 
     componentDidMount() {
-        this.props.getClassList(0); // teacher id is hardcoded to 0
+        this.props.getClassList(0); // TODO:teacher id is hardcoded to 0
     }
 
     _renderClassCard(data, i) {
@@ -69,8 +69,6 @@ class ClassList extends Component {
             || stringContains(c.title.toLowerCase(), this.state.searchQuery)
             || stringContains(c.section.toLowerCase(), this.state.searchQuery)
         );
-        console.log(this.state.searchQuery, valuesOf(this.props.classes),
-                    filteredClass);
         return (
             <div>
                 <SearchClass onSearch={this.searchClass}/>

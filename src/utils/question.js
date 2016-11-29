@@ -10,10 +10,11 @@ export const multiplechoice = Object.freeze(
                                                                 + 1),
             type                  : "multiple-choice",
             prompt                : formData.prompt,
-            "class-id"            : null,
             "quiz-id"             : null,
-            "max-score"           : formData["max-score"],
-            "participation-weight": formData["participation-weight"],
+            "class-id"            : null,
+            "max-score"           : parseFloat(formData["max-score"]),
+            "participation-weight": parseFloat(
+                formData["participation-weight"]),
             "question-data"       : {options: formData.options},
             "answer-data"         : {
                 "correct-option": formData.options[formData.correct]

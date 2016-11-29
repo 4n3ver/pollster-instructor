@@ -25,7 +25,7 @@ class NewQuestionForm extends Component {
 
     _onSubmit(payload) {
         this.props.addQuestion(this.props.classId, this.props.quizId,
-                               multiplechoice.fromForm(payload));
+                                multiplechoice.fromForm(payload));
         this._onCancel();
     }
 
@@ -117,10 +117,9 @@ const mapDispatchToProps = {
     addQuestion
 };
 
-const validateForm = (values, props) => {
-    return MultipleChoice.validateForm(
+const validateForm = (values, props) =>
+    MultipleChoice.validateForm(
         values, required("prompt", "max-score")(values, props));
-};
 
 export default compose(
     connect(

@@ -96,6 +96,9 @@ MultipleChoice.validateForm = (values, props, errors = {}) => {
         v => v === void 0 || v.trim && v.trim().length === 0
             ? "Required!"
             : null);
+    if (errors.options.every(e => e === null)) {
+        delete errors.options;
+    }
     return errors;
 };
 

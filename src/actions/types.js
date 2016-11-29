@@ -13,7 +13,8 @@ export const END_LOADING = "view/END_LOADING";
 
 export const ADD_QUESTION = "question/ADD_QUESTION";
 export const REMOVE_QUESTION = "question/REMOVE_QUESTION";
-export const EDIT_QUESTION = "question/EDIT_QUESTION";
+export const OPEN_QUESTION = "question/OPEN_QUESTION";
+export const CLOSE_QUESTION = "question/CLOSE_QUESTION";
 
 export const ADD_QUIZ = "quiz/ADD_QUIZ";
 export const REMOVE_QUIZ = "quiz/REMOVE_QUIZ";

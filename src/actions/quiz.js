@@ -12,7 +12,7 @@ const _addQuiz = (classId, quizName, id = getRandomInt(0, MAX_UINT_32 + 1),
         type   : ADD_QUIZ,
         payload: {
             name          : quizName,
-            id            : id,
+            id            : `${id}`,
             "class-id"    : classId,
             "total-points": totalPoints
         }
@@ -20,23 +20,44 @@ const _addQuiz = (classId, quizName, id = getRandomInt(0, MAX_UINT_32 + 1),
 };
 
 export const addQuiz = (classId, quizName) => dispatch => {
+    dispatch(startLoading());
     const newQuizAction = _addQuiz(classId, quizName);
     fetch(`${API_URL}/quiz`, {
         method : "POST",
         headers: {"Content-Type": "application/json"},
-        body   : JSON.stringify(newQuizAction.payload)
+        body   : JSON.stringify(
+            {
+                name        : newQuizAction.payload.name,
+                id          : newQuizAction.payload.id,
+                class_id    : newQuizAction.payload["class-id"]
+            }
+        )
     })
-        .then(response => response.ok
-            ? dispatch(newQuizAction)
-            : dispatch());  // should have sent error here
+        .then(response => {
+            dispatch(endLoading());
+            return response.ok
+                ? dispatch(newQuizAction)
+                : dispatch();
+        });  // should have sent error here
 };
 
-export const removeQuiz = q => {
-    return {
-        type   : REMOVE_QUIZ,
-        payload: q
-    };
+export const removeQuiz = q => dispatch => {
+    dispatch(startLoading());
+    fetch(`${API_URL}/quiz?quiz_id=${q.id}`, {method: "DELETE"})
+        .then(response => {
+            dispatch(endLoading());
+            return response.ok
+                ? dispatch({type: REMOVE_QUIZ, payload: q})
+                : dispatch();
+        });
 };
+
+//export const removeQuiz = q => {
+//    return {
+//        type   : REMOVE_QUIZ,
+//        payload: q
+//    };
+//};
 
 export const getQuiz = classID => dispatch => {
     dispatch(startLoading());

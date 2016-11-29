@@ -68,17 +68,10 @@ class QuizList extends Component {
                             <i className="remove icon"/>
                         </div>
                     </div>
-                    <div className="ui horizontal segments">
-                        <div className="ui segment">
-                            <button className="fluid ui button">
-                                View Students Grade
-                            </button>
-                        </div>
-                        <div className="ui segment">
-                            <button className="ui fluid button">Export Students
+                    <div className="ui segment">
+                        <button className="ui fluid button">Export Students
                                 Grade to CSV
-                            </button>
-                        </div>
+                        </button>
                     </div>
                     <div className="ui segment">
                         <Link className="ui primary button fluid"
@@ -101,7 +94,6 @@ class QuizList extends Component {
         const filteredQuiz = valuesOf(quizList).filter(
             (quiz, i) => stringContains(quiz.name.toLowerCase(),
                                         this.state.searchQuery));
-        console.log(filteredQuiz);
         return (
             <div>
                 <SearchQuiz onSearch={this.searchQuiz}/>

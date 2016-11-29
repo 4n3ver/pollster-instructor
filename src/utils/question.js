@@ -3,6 +3,7 @@
 
 import { MAX_UINT_32, getRandomInt } from "./func";
 
+// status can be "ready" => "open" => "closed" => "open"
 export const multiplechoice = Object.freeze(
     {
         fromForm: formData => ({

@@ -7,14 +7,20 @@ import Modal from "react-modal";
 import { initialize } from "redux-form";
 import NewQuestionForm from "./NewQuestionForm";
 import DeleteConfirmation from "../DeleteConfirmation";
-import { removeQuestion, getQuestion } from "../../actions";
+import {
+    removeQuestion,
+    getQuestion,
+    openQuestion,
+    closeQuestion
+} from "../../actions";
 import { multiplechoice } from "../../utils/question";
 
 class QuestionsCard extends Component {
     constructor(props) {
         super(props);
         this._bind("_renderQuestion", "_onQuestionDeleteConfirmed",
-                   "_onQuestionDelete", "_onQuestionEdit");
+                   "_onQuestionDelete", "_onQuestionEdit",
+                   "_renderActionButton");
         this.state = {
             newQuestionModalShown: false,
             deleteModalShown     : false,
@@ -79,12 +85,35 @@ class QuestionsCard extends Component {
                             this._renderOption(
                                 q["answer-data"]["correct-option"]))}
                     </div>
-                    <div className="mini ui fluid inverted green button">
-                        Open Question
-                    </div>
+                    {this._renderActionButton(q)}
                 </div>
             </div>
         );
+    }
+
+    _renderActionButton(q) {
+        if (q.status === "ready") {
+            return (
+                <div className="mini ui fluid inverted green button"
+                    onClick={() => this.props.openQuestion(q)}>
+                    Open Question
+                </div>
+            );
+        } else if (q.status === "open") {
+            return (
+                <div className="mini ui fluid inverted red button"
+                    onClick={() => this.props.closeQuestion(q)}>
+                    Close Question
+                </div>
+            );
+        } else if (q.status === "closed") {
+            return (
+                <div className="mini ui fluid inverted orange button"
+                    onClick={() => this.props.openQuestion(q)}>
+                    Re-Open Question
+                </div>
+            );
+        }
     }
 
     _renderOption(answer) {
@@ -163,7 +192,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     removeQuestion,
     getQuestion,
-    initialize
+    initialize,
+    openQuestion,
+    closeQuestion
 };
 
 export default connect(

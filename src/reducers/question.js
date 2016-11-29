@@ -8,7 +8,7 @@ import {
     CLOSE_QUESTION
 } from "../actions/types";
 
-export default (state = {}, action) => {
+export default (state = {active: void 0}, action) => {
     let quizId, classId;
     if (action.payload) {
         quizId = action.payload["quiz-id"];
@@ -41,7 +41,8 @@ export default (state = {}, action) => {
                                 status: "open"
                             })
                     })
-                })
+                }),
+                active   : action.payload.id
             });
         case CLOSE_QUESTION:
             return Object.assign({}, state, {
@@ -52,7 +53,8 @@ export default (state = {}, action) => {
                                 status: "closed"
                             })
                     })
-                })
+                }),
+                active   : null
             });
         default:
             return state;

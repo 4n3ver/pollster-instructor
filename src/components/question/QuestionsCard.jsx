@@ -92,9 +92,12 @@ class QuestionsCard extends Component {
     }
 
     _renderActionButton(q) {
+        const activeQuestion = this.props.question.active;
         if (q.status === "ready") {
             return (
-                <div className="mini ui fluid inverted green button"
+                <div className={`mini ui fluid inverted green${activeQuestion
+                ? " disabled"
+                : ""} button`}
                     onClick={() => this.props.openQuestion(q)}>
                     Open Question
                 </div>
@@ -108,7 +111,9 @@ class QuestionsCard extends Component {
             );
         } else if (q.status === "closed") {
             return (
-                <div className="mini ui fluid inverted orange button"
+                <div className={`mini ui fluid inverted orange${activeQuestion
+                    ? " disabled"
+                    : ""} button`}
                     onClick={() => this.props.openQuestion(q)}>
                     Re-Open Question
                 </div>

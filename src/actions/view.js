@@ -43,7 +43,7 @@ export const buildStack = path => {
     const parts = path.split("/");
     const stack = [];
     for (let i = 1; i < parts.length; i++) {
-        if (i !== 2) {
+        if (i !== 2 && i !== 4) {
             stack.push(createPathName(parts.slice(0, i + 1).join("/")));
         }
     }

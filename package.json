@@ -1,6 +1,6 @@
 {
   "name": "pollster-instructor",
-  "version": "0.0.1",
+  "version": "0.0.18",
   "description": "",
   "main": "build/app-client.js",
   "scripts": {

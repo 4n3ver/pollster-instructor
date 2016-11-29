@@ -4,16 +4,16 @@
 const path = require("path");
 const fs = require("fs");
 
-let nodeModules = {};
+const nodeModules = {};
 fs.readdirSync("node_modules")
-  .filter((x) => [".bin"].indexOf(x) === -1)
-  .forEach((mod) => nodeModules[mod] = "commonjs " + mod);
+  .filter(x => [".bin"].indexOf(x) === -1)
+  .forEach(mod => nodeModules[mod] = `commonjs ${mod}`);
 
 module.exports = [
     {
         name: "Client Build",
         entry : {
-            app: path.resolve(__dirname, "src/app-client.jsx"),
+            app: path.resolve(__dirname, "src/app-client.jsx")
         },
         output: {
             path    : path.join(__dirname, "build", "public"),

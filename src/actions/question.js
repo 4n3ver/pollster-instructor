@@ -1,7 +1,12 @@
 /* @flow */
 "use strict";
 
-import { ADD_QUESTION, REMOVE_QUESTION, OPEN_QUESTION, CLOSE_QUESTION} from "./types";
+import {
+    ADD_QUESTION,
+    REMOVE_QUESTION,
+    OPEN_QUESTION,
+    CLOSE_QUESTION
+} from "./types";
 import { startLoading, endLoading } from "./view";
 import { API_URL } from "../config";
 

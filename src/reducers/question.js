@@ -42,7 +42,7 @@ export default (state = {active: void 0}, action) => {
                             })
                     })
                 }),
-                active   : action.payload.id
+                active   : action.payload
             });
         case CLOSE_QUESTION:
             return Object.assign({}, state, {

@@ -32,6 +32,12 @@ class QuestionsCard extends Component {
         this.props.getQuestion(this.props.classId, this.props.quizId);
     }
 
+    componentWillUnmount() {
+        if (this.props.question.active) {
+            this.props.closeQuestion(this.props.question.active);
+        }
+    }
+
     _bind(...methods) {
         methods.forEach(
             method => this[method] = this[method].bind(this));
@@ -62,17 +68,22 @@ class QuestionsCard extends Component {
     }
 
     _renderQuestion(q, i) {
+        const activeQuestion = this.props.question.active;
         return (
             <div key={i} className="question column">
                 <div className="ui fluid compact basic blue button question">
                     <div onClick={this._onQuestionDelete(q)}
-                        className="right floated mini circular compact ui negative icon button"
+                        className={`right floated mini circular${activeQuestion
+                            ? " disabled"
+                            : ""} compact ui negative icon button`}
                         data-tooltip="Delete this question"
                         data-position="top right">
                         <i className="remove icon"/>
                     </div>
                     <div onClick={this._onQuestionEdit(q)}
-                        className="right floated mini circular compact inverted ui orange icon button"
+                        className={`right floated mini circular${activeQuestion
+                            ? " disabled"
+                            : ""} compact inverted ui orange icon button`}
                         data-tooltip="Edit this question"
                         data-position="top right">
                         <i className="edit icon"/>

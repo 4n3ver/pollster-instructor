@@ -34,7 +34,7 @@
 + For IntelliJ WebStorm user:
 "uncheck File > Settings... > System Settings > Use safe write (save changes to a temporary file first)."
 
-+ Coding style are enforced using `eslint`, rules of the coding style can be found in `.eslintrc` file. To check code style type (after installing dependencies)
++ Coding style are enforced using `eslint`, rules of the coding style can be found in `.eslintrc` file. To check for code style, type (make sure to install dependencies beforehand)
 
     `$ eslint --fix`
 
@@ -69,7 +69,8 @@ You can build this project for production by typing. Note that the `webpack.conf
   `$ webpack --production`
 
 ## Hosting
-You can host this anywhere that can host static resource files such as Amazon S3 or use the backend server to host this app as well. Although the server may have to be configured to accept CORS request from the domain in which this application is hosted.
+You can host this anywhere that can host static resource files such as Amazon S3 or use the backend server to host this app. 
+Although, the server may have to be configured to accept CORS request from the domain in which this application is hosted.
 
 ## Contributors
 + Yoel Ivan (yivan3@gatech.edu)
